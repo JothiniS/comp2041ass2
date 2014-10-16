@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# written by andrewt@cse.unsw.edu.au September 2013
+# written by Jothini Sivananthan September 2014
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/LOVE2041/
 
@@ -28,9 +28,17 @@ sub browse_screen {
 	param('n', $n + 1);
 	my $student_to_show  = $students[$n];
 	my $profile_filename = "$student_to_show/profile.txt";
+       
 	open my $p, "$profile_filename" or die "can not open $profile_filename: $!";
 	$profile = join '', <$p>;
-	close $p;
+         $profile=~s/name:\n.*\n//gi;
+         $profile=~s/email:\n.*\n//gi;
+         $profile=~s/usercourses:\n.*\n//gi;
+         $profile=~s/password:\n.*\n//gi;
+	 my $profile_pic = "$student_to_show/profile.jpg";
+	 print "<img src=$profile_pic>";
+	
+	
 	
 	return p,
 		start_form, "\n",
@@ -40,6 +48,14 @@ sub browse_screen {
 		end_form, "\n",
 		p, "\n";
 }
+sub confidential_info {
+	
+
+
+
+
+}
+
 
 #
 # HTML placed at bottom of every screen
