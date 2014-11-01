@@ -102,7 +102,7 @@ if (param('password_checked')) {
 }
 
 exit 0;
-#function to login by student
+#function to display login screen
 sub login_screen {
     print start_form,
         'Enter login: ', textfield('login'), "<br>\n",
@@ -117,6 +117,7 @@ sub wrong_password_screen {
     print "Login or password incorrect.\n", p;
     login_screen();
 }
+#function to logout
 sub logout_screen {
    print start_form,
    'logout',textfield('logout'), "<br>\n",
@@ -125,7 +126,7 @@ sub logout_screen {
   
    
 }
-#checking if the password is correct and matches the student login
+#function to check if the password is correct and matches the student login
 sub authenticate_password {
     my $login = param('login');
     my $password = param('password');
