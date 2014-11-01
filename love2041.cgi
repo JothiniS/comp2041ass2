@@ -19,7 +19,7 @@ print center(h2(i("The Ultimate Love Match")));
 $debug = 1;
 $students_dir = "./students";
 #print browse_screen();
-
+#check to choose whether to display browse screen or login and password screen 
 if (defined param('browse')) {
     print hidden('browse');
     print browse_screen();
@@ -42,11 +42,11 @@ sub browse_screen {
 	open my $p, "$profile_filename" or die "can not open $profile_filename: $!";
 	$profile = join '', <$p>;
         close $p;
-        
+        #regex to remove the name, email, course,password field
         $profile=~s/name:\n.*\n//gi;
         $profile=~s/email:\n.*\n//gi;
         $profile=~s/usercourses:\n.*\n//gi;
-        $profile=~s/couses:[0-9]{4}\s+[A-Z]+[0-9]+//gi;
+        $profile=~s/courses:[0-9]{4}\s+[A-Z]+[0-9]+//gi;
       	$profile=~s/[0-9]{4}\s+S[12]\s+[A-Z]+[0-9]+//gi;
         $profile=~s/[0-9]{4}\s+X[12]\s+[A-Z]+[0-9]+//gi;
         $profile=~s/courses:\n.*\n//gi;
@@ -55,11 +55,12 @@ sub browse_screen {
 	$person= $students[$n];
 	$person=~m/.\/students\/(.*)/;
 	print h1("$student_to_show");
+	#display profile picture for each of the students
         my $profile_pic = "$students_dir/$student_to_show/profile.jpg";
         print "<img src=$profile_pic alt='pic'>";
         print h3( pre($profile));
 	 
-
+	#display upload button for user to upload a file
   	print filefield('uploaded_file','starting value',50,80);	    	
 	return p,
 		start_form, "\n",
@@ -76,7 +77,7 @@ sub browse_screen {
 # HTML placed at bottom of every screen
 #
 
-
+#display the title of the webpage
 sub title_header {
 	return start_html("-title"=>"The Ultimate Love Match"-bgcolor=>"#FEDCBA");
 		center(h2(i("The Ultimate Love Match")));
@@ -101,7 +102,7 @@ if (param('password_checked')) {
 }
 
 exit 0;
-
+#function to login by student
 sub login_screen {
     print start_form,
         'Enter login: ', textfield('login'), "<br>\n",
@@ -111,7 +112,7 @@ sub login_screen {
         end_form,
         end_html;
 }
-
+#function to check if password is incorrect
 sub wrong_password_screen {
     print "Login or password incorrect.\n", p;
     login_screen();
@@ -124,7 +125,7 @@ sub logout_screen {
   
    
 }
-
+#checking if the password is correct and matches the student login
 sub authenticate_password {
     my $login = param('login');
     my $password = param('password');
