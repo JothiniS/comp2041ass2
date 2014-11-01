@@ -6,6 +6,8 @@ Sunday 19th October
 Today I changed the title of my website to “The Ultimate Love Match” and modified the font size. I also used the examples on the course webpage to get an idea of how to implement CSS for the website.
 Wednesday 22nd October
 Today I worked on the login and password component for my website. I used examples on the webpage as a starting point to help me with this as well as lab 11 which had a similar exercise to this. I tested the login and password part with some example students in the student’s directory and printed statements to see if the password matched the student. 
-Friday 24th October 
+Wednesday 29th October 
 Today I worked on the logout function to create a logout button for the webpage. I also modified the font size for each of the profiles to a bigger font so that it is visible for users.
+Sat 1st November
+Today I worked on the style of my program by making sure the indentation was all in line and removed unecessary code and comments. 
 

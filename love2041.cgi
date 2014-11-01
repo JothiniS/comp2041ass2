@@ -19,23 +19,18 @@ print center(h2(i("The Ultimate Love Match")));
 $debug = 1;
 $students_dir = "./students";
 #print browse_screen();
-#print  authenticate_password();
+
 if (defined param('browse')) {
- print hidden('browse');
-# print '<!--check-->';
-   print browse_screen();
+    print hidden('browse');
+    print browse_screen();
 } elsif(defined param('password')){
-  #print login_screen();
- print  authenticate_password();
- 
+   print  authenticate_password();
 }else{
-print login_screen();
-   
+  print login_screen(); 
 }
 print page_trailer();
 exit 0;	
-#s[0-9]\s+[A-Z]+[0-9]+
-#(+s[0-9]\s+[A-Z]+[0-9]+) // brackets help store captureinto variable $1
+
 sub browse_screen {
 	my $n = param('n') || 0;
 	my @students = glob("$students_dir/*");
@@ -43,35 +38,29 @@ sub browse_screen {
 	param('n', $n + 1);
 	my $student_to_show  = param('login');
 	my $profile_filename = "$students_dir/$student_to_show/profile.txt";
-#     my $style = get_style();  
+  
 	open my $p, "$profile_filename" or die "can not open $profile_filename: $!";
 	$profile = join '', <$p>;
         close $p;
         
-         $profile=~s/name:\n.*\n//gi;
-         $profile=~s/email:\n.*\n//gi;
+        $profile=~s/name:\n.*\n//gi;
+        $profile=~s/email:\n.*\n//gi;
         $profile=~s/usercourses:\n.*\n//gi;
-        $profile=~s/couses:[0-9]{4}\s+[A-Z]+[0-9]+//g;
-        $profile=~s/courses:\s+((([0-9]+\s+S[12]\s+[A-Z]+[0-9]+\s+)+)+)//g;
-        $profile=~s/courses:\s+((([0-9]+\s+X[12]\s+[A-Z]+[0-9]+\s+)+)+)//g;
-       $profile=~s/[0-9]{4}\s+S[12]\s+[A-Z]+[0-9]+//g;
-        $profile=~s/[0-9]{4}\s+X[12]\s+[A-Z]+[0-9]+//g;
-        
-	$profile=~s/courses:\n.*\n//gi;
+        $profile=~s/couses:[0-9]{4}\s+[A-Z]+[0-9]+//gi;
+      	$profile=~s/[0-9]{4}\s+S[12]\s+[A-Z]+[0-9]+//gi;
+        $profile=~s/[0-9]{4}\s+X[12]\s+[A-Z]+[0-9]+//gi;
+        $profile=~s/courses:\n.*\n//gi;
         $profile=~s/password:\n.*\n//gi;
         
 	$person= $students[$n];
 	$person=~m/.\/students\/(.*)/;
 	print h1("$student_to_show");
- 	 my $profile_pic = "$students_dir/$student_to_show/profile.jpg";
-	 print "<img src=$profile_pic alt='pic'>";
-	 
-	 print h3( pre($profile));
+        my $profile_pic = "$students_dir/$student_to_show/profile.jpg";
+        print "<img src=$profile_pic alt='pic'>";
+        print h3( pre($profile));
 	 
 
-	#$profile=<font size="3" color="black">;
-
-   #print filefield('uploaded_file','starting value',50,80);	    	
+  	print filefield('uploaded_file','starting value',50,80);	    	
 	return p,
 		start_form, "\n",
 		pre($profile),"\n",
@@ -139,12 +128,11 @@ sub logout_screen {
 sub authenticate_password {
     my $login = param('login');
     my $password = param('password');
-   # print $password;
+ 
     $password_file = "./students/$login/profile.txt";
-    #print $password_file;
+    
     if (!open F, "<$password_file") {
-		#print "Unknown username!\n";
-	
+			
 	} else {
 		while($correct_password=<F>){
 			
@@ -152,12 +140,10 @@ sub authenticate_password {
 		if($correct_password=~m/password:/ ){
 		       $correct_password = <F>;
 		       chomp $correct_password;
-		      # print $correct_password;
+		     
 		       $correct_password =~ s/^\s+//g;
 		if ($password eq $correct_password) {
-			 print '<!--pass-->';
-			#print "You are authenticated.\n";
-		#	param('student',$login);
+		        print '<!--pass-->';
 			browse_screen();
 			print '<!--pass-->';
 			param('browse', 'browse');
@@ -166,15 +152,14 @@ sub authenticate_password {
 			print hidden('password_checked');
 			
 		} else {
-			#print "Incorrect password!\n";
+		
 			wrong_password_screen();
 		}
 		}
 	}
 	}
     
-    #./students/username/profile.txt
-    #open <F>, ./students/username/profile.txt or die;
+    
    return $login && $password && $login eq "andrewt" && $password eq "secret";
 }
 
