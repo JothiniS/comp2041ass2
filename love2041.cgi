@@ -3,7 +3,7 @@
 # written by Jothini Sivananthan September 2014
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/LOVE2041/
-
+# Assignment to make a dating website
 use CGI qw/:all/;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use Data::Dumper;  
